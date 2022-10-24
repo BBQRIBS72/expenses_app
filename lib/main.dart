@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './transaction.dart';
+import './widgets/user_transactions.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,6 +8,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Expenses App',
@@ -19,43 +20,31 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
-  final List<Transaction> transactions = [
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 50.11,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Groceries',
-      amount: 10.31,
-      date: DateTime.now(),
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expenses App'),
+        backgroundColor: Colors.purple,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: const Card(
-              color: Colors.blue,
-              elevation: 5,
-              child: Text('CHART!'),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              child: const Card(
+                color: Colors.purple,
+                elevation: 5,
+                child: Text(
+                  'CHART!',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
-          ),
-          Column(
-            children: transactions.map(((transaction) {
-              return Card(child: Text(transaction.title));
-          })).toList())
-        ],
+            const UserTransactions(),
+          ],
+        ),
       ),
     );
   }
